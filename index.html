@@ -10,7 +10,7 @@ layout: default
       {% capture postday %}{{post.date | date: '%j'}}{% endcapture %}
       {% assign postday = postday | plus: 0 %}
       {% assign nowday = nowday | minus: 2 %}
-      {% if postday >= nowday and postyear >= nowyear %}
+      {% if postyear > nowyear or postday >= nowday and postyear >= nowyear %}
       <article class="post">
       <h2>{{ post.title }}</h2>
       <ul>
