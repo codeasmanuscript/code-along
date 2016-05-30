@@ -4,6 +4,13 @@ layout: default
 
 <div class="posts">
   {% for post in site.posts reversed %}
+      {% capture nowyear %}{{'now' | date: '%Y'}}{% endcapture %}
+      {% capture postyear %}{{post.date | date: '%Y'}}{% endcapture %}
+      {% capture nowday %}{{'now' | date: '%j'}}{% endcapture %}
+      {% capture postday %}{{post.date | date: '%j'}}{% endcapture %}
+      {% assign postday = postday | plus: 0 %}
+      {% assign nowday = nowday | minus: 2 %}
+      {% if postyear > nowyear or postday >= nowday and postyear >= nowyear %}
       <article class="post">
       <h2>{{ post.title }}</h2>
       <ul>
@@ -15,5 +22,6 @@ layout: default
         {% if post.videolink != nil %}Note: this session was <a href="{{ post.videolink }}">live streamed here</a>{% endif %}
       </ul>
       </article>
+      {% endif %}
   {% endfor %}
 </div>
