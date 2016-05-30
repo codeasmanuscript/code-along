@@ -1,0 +1,28 @@
+---
+layout: default
+permalink: /past/
+---
+
+<div class="posts">
+  {% for post in site.posts reversed %}
+      {% capture nowyear %}{{'now' | date: '%Y'}}{% endcapture %}
+      {% capture postyear %}{{post.date | date: '%Y'}}{% endcapture %}
+      {% capture nowday %}{{'now' | date: '%j'}}{% endcapture %}
+      {% capture postday %}{{post.date | date: '%j'}}{% endcapture %}
+      {% assign postday = postday | plus: 0 %}
+      {% assign nowday = nowday | minus: 2 %}
+      {% if postday < nowday and postyear <= nowyear %}
+      <article class="post">
+      <h2>{{ post.title }}</h2>
+      <ul>
+        <li><strong>Details:</strong> {{ post.details }}</li>
+        <li><strong>When:</strong> {{ post.date | date: "%B %d, %Y" }}, {{ post.time | date:"%I:%M %p" }} (may change)</li>
+        <li><strong>Where:</strong> {{ post.location }}</li>
+        <li><strong>Instructions:</strong> Please read and follow these <a href="{{ site.baseurl }}/instructions">instructions</a> before coming.</li>
+        {% if post.packages != nil %}<li><strong>Package(s) to install:</strong> <code>install.packages({{ post.packages }})</code></li>{% endif %}
+        {% if post.videolink != nil %}Note: this session was <a href="{{ post.videolink }}">live streamed here</a>{% endif %}
+      </ul>
+      {% endif %}
+      </article>
+  {% endfor %}
+</div>

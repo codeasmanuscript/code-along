@@ -1,0 +1,26 @@
+Hey `r params$to` could you send this to the graduate students? Thanks!
+
+-----
+```{r, include=FALSE}
+library(yaml)
+file_contents <- readLines(params$file)
+workshop <- yaml.load(paste(tail(head(file_contents, -1), -1), collapse = '\n'))
+ws_time <- format(strptime(workshop$time, format='%H:%M'), '%I:%M %p')
+ws_date <- format(as.Date(workshop$date), '%A %B %d')
+
+pkgs <- ifelse(!is.null(workshop$packages), gsub('c|\\(|\\)|"', '', workshop$packages), '')
+if (length(pkgs)) {
+    pkgs <- paste0(' as well as these packages ', pkgs)
+}
+```
+Interested in doing R? Come to this workshop to learn about `r workshop$topic`. Details below:
+
+<b>`r workshop$title`</b>
+
+- <b>Details</b>: `r workshop$details`
+- <b>Date</b>: `r ws_date`
+- <b>Time</b>: `r ws_time`
+- <b>Location</b>: `r workshop$location`
+- <b>Prerequisites</b>: Install both R and RStudio`r pkgs` (see the <a href="http://codeasmanuscript.github.io/code-along/instructions">instructions</a>).
+
+Check out <a href="http://codeasmanuscript.github.io/code-along">the workshop website</a> to see a list of scheduled topics that will be covered at each session.
