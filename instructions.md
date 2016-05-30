@@ -7,8 +7,8 @@ permalink: /instructions/
 In general, these workshops are intended assuming very little knowledge of R. So
 *all* are welcome, no matter your skill, knowledge, or experience level!
 
-Also, you are welcome to come with your own data to try the commands we'll go
-over so you can see your own results!
+Also, you are welcome to come with your *own data* so you can try the commands
+to see your own results!
 
 ## Installing
 

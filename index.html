@@ -17,7 +17,7 @@ layout: default
         <li><strong>Details:</strong> {{ post.details }}</li>
         <li><strong>When:</strong> {{ post.date | date: "%B %d, %Y" }}, {{ post.time | date:"%I:%M %p" }} (may change)</li>
         <li><strong>Where:</strong> {{ post.location }}</li>
-        <li><strong>Instructions:</strong> Please read and follow these <a href="{{ site.baseurl }}/instructions">instructions</a> before coming.</li>
+        <li><strong>Instructions:</strong> Please read and follow these <a href="{{ site.github.url }}/instructions">instructions</a> before coming.</li>
         {% if post.packages != nil %}<li><strong>Package(s) to install:</strong> <code>install.packages({{ post.packages }})</code></li>{% endif %}
         {% if post.videolink != nil %}Note: this session was <a href="{{ post.videolink }}">live streamed here</a>{% endif %}
       </ul>

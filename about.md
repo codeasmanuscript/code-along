@@ -4,18 +4,12 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
+A listing of upcoming (and past) short R workshops/tutorials.
 
-### More Information
-
-A place to include any other types of information that you'd like to include about yourself.
-
-Useful links:
+### Useful links:
 
 - [Instructions](/instructions)
 - [Resources](/resources)
 - [FAQ](/faq)
 
-### Contact me
-
-[email@domain.com](mailto:email@domain.com)
+Check the bottom icons to send an email, get the RSS feed, or see the Github Repo.
