@@ -13,7 +13,7 @@ if (length(pkgs)) {
     pkgs <- paste0(' as well as these packages ', pkgs)
 }
 ```
-Interested in doing R? Come to this workshop to learn about `r workshop$topic`. Details below:
+Interested in doing R? Come to this workshop to learn about `r workshop$tagline`. Details below:
 
 <b>`r workshop$title`</b>
 
