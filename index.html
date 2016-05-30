@@ -21,7 +21,7 @@ layout: default
         {% if post.packages != nil %}<li><strong>Package(s) to install:</strong> <code>install.packages({{ post.packages }})</code></li>{% endif %}
         {% if post.videolink != nil %}Note: this session was <a href="{{ post.videolink }}">live streamed here</a>{% endif %}
       </ul>
-      {% endif %}
       </article>
+      {% endif %}
   {% endfor %}
 </div>
