@@ -5,5 +5,3 @@ location: FG423
 date: 2016-05-26
 time: '15:00'
 ---
-
-bookmark

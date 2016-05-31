@@ -4,6 +4,6 @@ details: Learn to use R programming to convert your raw data into analyzable dat
 location: FG423
 date: 2016-08-25
 time: '15:00'
-tagline: data processing
+topic: data processing
 permalink: /404
 ---
