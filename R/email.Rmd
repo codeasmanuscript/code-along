@@ -8,8 +8,9 @@ workshop <- yaml.load(paste(tail(head(file_contents, -1), -1), collapse = '\n'))
 ws_time <- format(strptime(workshop$time, format='%H:%M'), '%I:%M %p')
 ws_date <- format(as.Date(workshop$date), '%A %B %d')
 
-pkgs <- ifelse(!is.null(workshop$packages), gsub('c|\\(|\\)|"', '', workshop$packages), '')
-if (length(pkgs)) {
+pkgs <- ''
+if (!is.null(workshop$packages)) {
+    pkgs <- gsub('c|\\(|\\)|"', '', workshop$packages)
     pkgs <- paste0(' as well as these packages ', pkgs)
 }
 ```
@@ -24,3 +25,7 @@ Interested in doing R? Come to this workshop to learn about `r workshop$topic`. 
 - <b>Prerequisites</b>: Install both R and RStudio`r pkgs` (see the <a href="http://codeasmanuscript.github.io/code-along/instructions">instructions</a>).
 
 Check out <a href="http://codeasmanuscript.github.io/code-along">the workshop website</a> to see a list of scheduled topics that will be covered at each session.
+
+We will be doing a code review afterwards with my lab. You are welcome to stay and participate! If you are up for it we can do a code review of your own code. It is a great way to learn and get feedback!
+
+Hope to see you then!

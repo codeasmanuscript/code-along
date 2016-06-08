@@ -6,11 +6,14 @@
 # arg2 = workshop session file
 #
 args <- commandArgs(trailingOnly = TRUE)
+if (length(args) != 2)
+    stop('Please supply two args: Louisa/Emilia and the session file.')
+if (!file.exists(args[2]))
+    stop('Please supply a file that actually exists.')
+
 params <- list()
 params$to <- match.arg(args[1], c('Louisa', 'Emilia'))
 params$file <- args[2]
-if (length(args) > 2)
-    stop('Only two arguments are needed.')
 
 sender <- 'luke.johnston@mail.utoronto.ca'
 subject <- 'Upcoming DNS R workshop'
