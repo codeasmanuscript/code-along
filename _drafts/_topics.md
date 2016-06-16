@@ -16,3 +16,4 @@ Later:
 - making functions
 - making packages
 - reproducible reports
+- Version control using Git in RStudio
