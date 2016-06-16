@@ -9,7 +9,7 @@ layout: default
       {% capture nowday %}{{'now' | date: '%j'}}{% endcapture %}
       {% capture postday %}{{post.date | date: '%j'}}{% endcapture %}
       {% assign postday = postday | plus: 0 %}
-      {% assign nowday = nowday | minus: 2 %}
+      {% assign nowday = nowday | minus: 1 %}
       {% if postyear > nowyear or postday >= nowday and postyear >= nowyear %}
       <article class="post">
       <h2>{{ post.title }}</h2>
@@ -19,7 +19,7 @@ layout: default
         <li><strong>Where:</strong> {{ post.location }}</li>
         <li><strong>Instructions:</strong> Please read and follow these <a href="{{ site.github.url }}/instructions">instructions</a> before coming.</li>
         {% if post.packages != nil %}<li><strong>Package(s) to install:</strong> <code>install.packages({{ post.packages }})</code></li>{% endif %}
-        {% if post.videolink != nil %}Note: this session was <a href="{{ post.videolink }}">live streamed here</a>{% endif %}
+        {% if post.video != nil %}<li><strong>Video:</strong> Session recording is available <a href="{{ post.video }}">here</a></li>{% endif %}
       </ul>
       Notes and code from the session may be available <a href="{{ site.github.url }}{{ post.url }}">here</a>. If not, they will be available after the session.
       </article>
