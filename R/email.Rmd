@@ -3,15 +3,17 @@ Hey `r params$to` could you send this to the graduate students? Thanks!
 -----
 ```{r, include=FALSE}
 library(yaml)
-file_contents <- readLines(params$file)
-workshop <- yaml.load(paste(tail(head(file_contents, -1), -1), collapse = '\n'))
+library(readr)
+pre <- read_lines(params$file, skip = 1)
+file_contents <- head(pre, grep('---', pre)[1]-1)
+workshop <- yaml.load(paste(file_contents, collapse = '\n'))
 ws_time <- format(strptime(workshop$time, format='%H:%M'), '%I:%M %p')
 ws_date <- format(as.Date(workshop$date), '%A %B %d')
 
 pkgs <- ''
 if (!is.null(workshop$packages)) {
     pkgs <- gsub('c|\\(|\\)|"', '', workshop$packages)
-    pkgs <- paste0(' as well as these packages ', pkgs)
+    pkgs <- paste0(' as well as these package(s): ', pkgs)
 }
 ```
 Interested in doing R? Come to this workshop to learn about `r workshop$topic`. Details below:
