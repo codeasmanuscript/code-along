@@ -3,6 +3,8 @@ layout: default
 permalink: /past/
 ---
 
+<p class="message">Please read and follow these <a href="{{ site.github.url }}/instructions">instructions</a> in order to try these past workshops on your own.</p>
+
 <div class="posts">
   {% for post in site.posts reversed %}
       {% capture nowyear %}{{'now' | date: '%Y'}}{% endcapture %}
@@ -18,11 +20,10 @@ permalink: /past/
         <li><strong>Details:</strong> {{ post.details }}</li>
         <li><strong>When:</strong> {{ post.date | date: "%B %d, %Y" }}, {{ post.time | date:"%I:%M %p" }} (may change)</li>
         <li><strong>Where:</strong> {{ post.location }}</li>
-        <li><strong>Instructions:</strong> Please read and follow these <a href="{{ site.github.url }}/instructions">instructions</a> before coming.</li>
         {% if post.packages != nil %}<li><strong>Package(s) to install:</strong> <code>install.packages({{ post.packages }})</code></li>{% endif %}
         {% if post.video != nil %}<li><strong>Video:</strong> Session recording is available <a href="{{ post.video }}">here</a></li>{% endif %}
       </ul>
-      Notes and code from the session may be available <a href="{{ site.github.url }}{{ post.url }}">here</a>. If not, they will be available after the session.
+      Notes and code are available <a href="{{ site.github.url }}{{ post.url }}">here</a>. If they aren't, they will be after the session.
       </article>
       {% endif %}
   {% endfor %}
