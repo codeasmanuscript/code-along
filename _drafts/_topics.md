@@ -17,3 +17,4 @@ Later:
 - making packages
 - reproducible reports
 - Version control using Git in RStudio
+- Combining data wrangling with ggplot2 (heatmaps, boxplots, etc.)
