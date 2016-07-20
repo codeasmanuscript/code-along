@@ -7,6 +7,7 @@ date: 2016-06-30
 time: '15:00'
 topic: plotting
 packages: '"ggplot2"'
+last_modified: `r Sys.Date()`
 ---
 
 R has a beautiful set of plotting capabilities that allow it to produce
