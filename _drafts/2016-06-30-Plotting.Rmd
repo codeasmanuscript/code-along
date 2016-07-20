@@ -17,10 +17,9 @@ the bottom), in addition to it being fairly easy to learn and use.
 
 So let's get started. Load up the package:
 
-
-{% highlight r %}
+```{r}
 library(ggplot2)
-{% endhighlight %}
+```
 
 Before starting, there is major assumption here for making plots: that your data
 is already cleaned up and tidy, ready for plotting and analysis. If it isn't,
@@ -30,31 +29,10 @@ Let's look over two datasets. I'm using two here because one contains a lot of
 continuous data (swiss) and the other contains more discrete data (mpg). Use
 `colnames` to look at the column names of your dataset:
 
-
-{% highlight r %}
+```{r}
 colnames(swiss)
-{% endhighlight %}
-
-
-
-{% highlight text %}
-#> [1] "Fertility"        "Agriculture"      "Examination"     
-#> [4] "Education"        "Catholic"         "Infant.Mortality"
-{% endhighlight %}
-
-
-
-{% highlight r %}
 colnames(mpg)
-{% endhighlight %}
-
-
-
-{% highlight text %}
-#>  [1] "manufacturer" "model"        "displ"        "year"        
-#>  [5] "cyl"          "trans"        "drv"          "cty"         
-#>  [9] "hwy"          "fl"           "class"
-{% endhighlight %}
+```
 
 Alright, let's do some simple plotting here. Standard plots include:
 
@@ -78,81 +56,60 @@ Height on the x-axis and Weight on the y-axis. Let's try it out.
 
 ### Line graph: Fertility by Agriculture
 
-
-{% highlight r %}
+```{r lineplot}
 ggplot(swiss, aes(x = Fertility, y = Agriculture)) +
     geom_line()
-{% endhighlight %}
-
-![plot of chunk lineplot](/images/2016-06-30-Plotting/lineplot-1.png)
+```
 
 ### Scatterplot: Education by Examination
 
-
-{% highlight r %}
+```{r scatterplot}
 ggplot(swiss, aes(x = Education, y = Examination)) +
     geom_point()
-{% endhighlight %}
-
-![plot of chunk scatterplot](/images/2016-06-30-Plotting/scatterplot-1.png)
+```
 
 ### Scatterplot with regression/smoothing lin: Education by Examination
 
 Using [loess](https://en.wikipedia.org/wiki/Local_regression) smoothing line:
 
-
-{% highlight r %}
+```{r smooth}
 ggplot(swiss, aes(x = Education, y = Examination)) +
     geom_point() +
     geom_smooth()
-{% endhighlight %}
-
-![plot of chunk smooth](/images/2016-06-30-Plotting/smooth-1.png)
+```
 
 ... or a simple linear regression line:
 
-
-{% highlight r %}
+```{r lmsmooth}
 ggplot(swiss, aes(x = Education, y = Examination)) +
     geom_point() +
     geom_smooth(method = 'lm') # lm = linear model
-{% endhighlight %}
-
-![plot of chunk lmsmooth](/images/2016-06-30-Plotting/lmsmooth-1.png)
+```
 
 ### Barplot: Number of vehicle types (class)
 
-
-{% highlight r %}
+```{r barplot}
 ggplot(mpg, aes(x = class)) +
     geom_bar()
-{% endhighlight %}
-
-![plot of chunk barplot](/images/2016-06-30-Plotting/barplot-1.png)
+```
 
 ### Boxplot: Vehicle type (class) by highway miles/gallon (hwy)
 
-
-{% highlight r %}
+```{r boxplot}
 ggplot(mpg, aes(x = class, y = hwy)) +
     geom_boxplot()
-{% endhighlight %}
-
-![plot of chunk boxplot](/images/2016-06-30-Plotting/boxplot-1.png)
+```
 
 ### Sub-dividing up your plot: 
 
 Let's plot drive type (4-wheel, front, rear) by highway mpg by number of
 cylinders.
 
-
-{% highlight r %}
+```{r facet_boxplot}
 ggplot(mpg, aes(x = drv, y = hwy)) +
     geom_boxplot() +
     facet_grid(~ cyl)
-{% endhighlight %}
-
-![plot of chunk facet_boxplot](/images/2016-06-30-Plotting/facet_boxplot-1.png)
+```
 
 There are dozens of types of layers (`geom_`) that you can use and the
 documentation is incredible! So if there is a plot you want to make, you
@@ -165,27 +122,21 @@ variable, useful for assessing skewness):
 
 Note: `fill` tells ggplot2 how to fill in groups with a colour.
 
-
-{% highlight r %}
+```{r densityplot}
 ggplot(mpg, aes(x = hwy, fill = drv)) +
     geom_density(alpha = 0.3) # alpha = transparency
-{% endhighlight %}
-
-![plot of chunk densityplot](/images/2016-06-30-Plotting/densityplot-1.png)
+```
 
 Adding a different colour (using the `scale_` group of commands; since `fill` is
 used, it would be `scale_fill_` and since one of the colour palettes is called
 `brewer`, it turns into `scale_fill_brewer`). You can see the different choices
 for palettes by running `?scale_fill_brewer` to look at the help file.
 
-
-{% highlight r %}
+```{r}
 ggplot(mpg, aes(x = hwy, fill = drv)) +
     geom_density(alpha = 0.3) +
     scale_fill_brewer(palette = 'Pastel1')
-{% endhighlight %}
-
-![plot of chunk unnamed-chunk-3](/images/2016-06-30-Plotting/unnamed-chunk-3-1.png)
+```
 
 And to customize individual features of the plot, you use `theme`. The `theme`
 options are quite extensive, so if you want to look more into it, check out
@@ -194,8 +145,7 @@ options are quite extensive, so if you want to look more into it, check out
 graphic right above "Complete and incomplete theme objects" section, near the
 bottom of the web document.
 
-
-{% highlight r %}
+```{r}
 ggplot(mpg, aes(x = hwy, fill = drv)) +
     geom_density(alpha = 0.3) +
     scale_fill_brewer(palette = 'Dark2') +
@@ -206,9 +156,7 @@ ggplot(mpg, aes(x = hwy, fill = drv)) +
           line = element_line(colour = 'black'),
           axis.line.y = element_line(colour = 'black'),
           axis.line.x = element_line(colour = 'black'))
-{% endhighlight %}
-
-![plot of chunk unnamed-chunk-4](/images/2016-06-30-Plotting/unnamed-chunk-4-1.png)
+```
 
 # Resources:
 
