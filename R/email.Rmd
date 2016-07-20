@@ -14,6 +14,6 @@ Interested in doing R? Come to this workshop to learn about `r workshop$topic`. 
 
 Check out <a href="http://codeasmanuscript.github.io/code-along">the workshop website</a> to see a list of scheduled topics that will be covered at each session.
 
-We will be doing a code review afterwards with my lab. You are welcome to stay and participate! If you are up for it we can do a code review of your own code. It is a great way to learn and get feedback!
+We do code reviews after with my lab. You are welcome (and encouraged!) to stay and participate! If you want to, we can do a code review of your own code :) It is a excellent way to learn!
 
 Hope to see you then!

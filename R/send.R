@@ -39,7 +39,7 @@ if (!is.null(workshop$packages)) {
 sender <- 'luke.johnston@mail.utoronto.ca'
 topic <- paste0(toupper(substr(workshop$topic, 1, 1)),
                 substr(workshop$topic, 2, nchar(workshop$topic)))
-subject <- paste0('Upcoming DNS R workshop: ', topic)
+subject <- paste0('DNS R workshop this Thursday: ', topic)
 
 if (params$to == 'Louisa') {
     recipient <- 'louisa.kung@utoronto.ca'
@@ -59,7 +59,7 @@ system(command)
 
 # Create reminder email of session ----------------------------------------
 
-subject <- 'Reminder: Upcoming DNS R workshop'
-command <- paste0("thunderbird -compose to='", recipient, "',from='",
-              sender, "',subject='", subject,"',body='", email_body, "'")
-system(command)
+# subject <- 'Reminder: DNS R workshop'
+# command <- paste0("thunderbird -compose to='", recipient, "',from='",
+#               sender, "',subject='", subject,"',body='", email_body, "'")
+# system(command)
