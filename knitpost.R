@@ -8,7 +8,7 @@ KnitPost <- function(input) {
     # this function is a modified version of an example here:
     # http://jfisher-usgs.github.com/r/2012/07/03/knitr-jekyll/
     outfile <- rename_to_post(input)
-    knitr::opts_knit$set(base.url = '/')
+    knitr::opts_knit$set(base.url = '{{ site.github.url }}/')
     fig.path <- paste0("images/", sub(".Rmd$", "", basename(input)), "/")
     knitr::opts_chunk$set(fig.path = fig.path,
                           comment = '#>')

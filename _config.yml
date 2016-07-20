@@ -82,6 +82,8 @@ exclude:
   - LICENSE.md
   - README.md
   - R
+  - code-along.Rproj
+  - knitpost.R
 
 # Allow posts dated in the future to be shown
 future: true
