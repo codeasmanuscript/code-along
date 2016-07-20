@@ -6,14 +6,14 @@ permalink: /past/
 <p class="message">Please read and follow these <a href="{{ site.github.url }}/instructions">instructions</a> in order to try these past workshops on your own.</p>
 
 <div class="posts">
-  {% for post in site.posts reversed %}
+  {% for post in site.posts %}
       {% capture nowyear %}{{'now' | date: '%Y'}}{% endcapture %}
       {% capture postyear %}{{post.date | date: '%Y'}}{% endcapture %}
       {% capture nowday %}{{'now' | date: '%j'}}{% endcapture %}
       {% capture postday %}{{post.date | date: '%j'}}{% endcapture %}
       {% assign postday = postday | plus: 0 %}
-      {% assign nowday = nowday | minus: 2 %}
-      {% if postday <= nowday and postyear <= nowyear %}
+      {% assign nowday = nowday | minus: 1 %}
+      {% if postyear < nowyear or postday <= nowday and postyear <= nowyear %}
       <article class="post">
       <h2>{{ post.title }}</h2>
       <ul>
@@ -21,9 +21,9 @@ permalink: /past/
         <li><strong>When:</strong> {{ post.date | date: "%B %d, %Y" }}, {{ post.time | date:"%I:%M %p" }} (may change)</li>
         <li><strong>Where:</strong> {{ post.location }}</li>
         {% if post.packages != nil %}<li><strong>Package(s) to install:</strong> <code>install.packages({{ post.packages }})</code></li>{% endif %}
-        {% if post.video != nil %}<li><strong>Video:</strong> Session recording is available <a href="{{ post.video }}">here</a></li>{% endif %}
+        {% if post.layout == "post" %}<li><strong>Notes:</strong> Code and notes are <a href="{{site.github.url }}{{ post.url }}">online here.</a></li>{% endif %}
+        {% if post.video != nil %}<li><strong>Video:</strong> Session was recorded and is <a href="{{ post.video }}">on YouTube.</a></li>{% endif %}
       </ul>
-      Notes and code are available <a href="{{ site.github.url }}{{ post.url }}">here</a>. If they aren't, they will be after the session.
       </article>
       {% endif %}
   {% endfor %}
