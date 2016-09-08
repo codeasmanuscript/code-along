@@ -15,13 +15,13 @@ to see your own results!
 Before coming to the workshop, please make sure to download and install:
 
 - [R](https://cloud.r-project.org/index.html), or more directly (assuming **64 bit** computer):
-    - [For Mac users](https://cloud.r-project.org/bin/macosx/R-3.3.0.pkg)
-    - [For Windows users](https://cloud.r-project.org/bin/windows/base/R-3.3.0-win.exe)
+    - [For Mac users](https://cloud.r-project.org/bin/macosx/R-3.3.1.pkg)
+    - [For Windows users](https://cloud.r-project.org/bin/windows/base/R-3.3.1-win.exe)
     - For Linux users, the steps to install, though easy, depend on your distribution
 - [RStudio](https://www.rstudio.com/products/rstudio/download/), or more directly (again, assuming **64 bit**):
-    - [For Windows users](https://download1.rstudio.org/RStudio-0.99.902.exe)
-    - [For Mac users](https://download1.rstudio.org/RStudio-0.99.902.dmg)
-    - For Linux users, again it will depend on your distribution, but [here is for Ubuntu](https://download1.rstudio.org/rstudio-0.99.902-amd64.deb)
+    - [For Windows users](https://download1.rstudio.org/RStudio-0.99.903.exe)
+    - [For Mac users](https://download1.rstudio.org/RStudio-0.99.903.dmg)
+    - For Linux users, again it will depend on your distribution, but [here is for Ubuntu](https://download1.rstudio.org/rstudio-0.99.903-amd64.deb)
     
 After downloaded, make sure to **install** each using your operating system's
 (e.g. Windows) standard procedure (e.g. running the `.exe` file for Windows
