@@ -1,0 +1,168 @@
+---
+layout: post
+title: Data visualization in R using ggplot2
+details: Learn to plot your data into beautiful, publication-ready figures.
+location: FG423
+date: 2016-10-20
+time: '13:00'
+topic: plotting
+packages: '"ggplot2"'
+last_modified: `r Sys.Date()`
+---
+
+R has a beautiful set of plotting capabilities that allow it to produce
+publication-quality graphs very easily and quickly. A commonly used package for
+making graphs in R is called ggplot2. The reason it is so popular is because it
+has great documentation, tutorials, and cheatsheets (see the Resources links on
+the bottom), in addition to it being fairly easy to learn and use.
+
+So let's get started. Load up the package:
+
+```{r}
+library(ggplot2)
+```
+
+Before starting, there is major assumption here for making plots: that your data
+is already cleaned up and tidy, ready for plotting and analysis. If it isn't,
+finish that part of your work first!
+
+Let's look over two datasets. I'm using two here because one contains a lot of
+continuous data (swiss) and the other contains more discrete data (mpg). Use
+`colnames` to look at the column names of your dataset:
+
+```{r}
+colnames(swiss)
+colnames(mpg)
+```
+
+Alright, let's do some simple plotting here. Standard plots include:
+
+- Line graph
+- Scatterplot
+- Scatterplot with a regression/smoothing line
+- Barplot
+- Boxplot
+
+The nice thing about ggplot2 is it is based on layers. You start with the base
+`ggplot` function, and using `+` you add additional layers with the `geom_`
+commands. Each type of layer ends in the type it is trying to create; so a line
+graph would be `geom_line`, a scatterplot would be `geom_point`, a bar would be
+`geom_bar`, and so on. Where you put the `geom_` in the layer will dictate where
+it will be placed on the final plot. The other thing to use in ggplot2 is the
+`aes` command, which stands for the aesthetics... or rather, what data and
+values you *actually* want to plot. So `aes(x = Height, y = Weight)` would put
+Height on the x-axis and Weight on the y-axis. Let's try it out.
+
+## Common plots
+
+### Line graph: Fertility by Agriculture
+
+```{r lineplot}
+ggplot(swiss, aes(x = Fertility, y = Agriculture)) +
+    geom_line()
+```
+
+### Scatterplot: Education by Examination
+
+```{r scatterplot}
+ggplot(swiss, aes(x = Education, y = Examination)) +
+    geom_point()
+```
+
+### Scatterplot with regression/smoothing lin: Education by Examination
+
+Using [loess](https://en.wikipedia.org/wiki/Local_regression) smoothing line:
+
+```{r smooth}
+ggplot(swiss, aes(x = Education, y = Examination)) +
+    geom_point() +
+    geom_smooth()
+```
+
+... or a simple linear regression line:
+
+```{r lmsmooth}
+ggplot(swiss, aes(x = Education, y = Examination)) +
+    geom_point() +
+    geom_smooth(method = 'lm') # lm = linear model
+```
+
+### Barplot: Number of vehicle types (class)
+
+```{r barplot}
+ggplot(mpg, aes(x = class)) +
+    geom_bar()
+```
+
+### Boxplot: Vehicle type (class) by highway miles/gallon (hwy)
+
+```{r boxplot}
+ggplot(mpg, aes(x = class, y = hwy)) +
+    geom_boxplot()
+```
+
+### Sub-dividing up your plot: 
+
+Let's plot drive type (4-wheel, front, rear) by highway mpg by number of
+cylinders.
+
+```{r facet_boxplot}
+ggplot(mpg, aes(x = drv, y = hwy)) +
+    geom_boxplot() +
+    facet_grid(~ cyl)
+```
+
+There are dozens of types of layers (`geom_`) that you can use and the
+documentation is incredible! So if there is a plot you want to make, you
+definitely can do it in R!
+
+## Customizing your plots:
+
+Default, using density plot (which shows the distribution of a continuous
+variable, useful for assessing skewness):
+
+Note: `fill` tells ggplot2 how to fill in groups with a colour.
+
+```{r densityplot}
+ggplot(mpg, aes(x = hwy, fill = drv)) +
+    geom_density(alpha = 0.3) # alpha = transparency
+```
+
+Adding a different colour (using the `scale_` group of commands; since `fill` is
+used, it would be `scale_fill_` and since one of the colour palettes is called
+`brewer`, it turns into `scale_fill_brewer`). You can see the different choices
+for palettes by running `?scale_fill_brewer` to look at the help file.
+
+```{r}
+ggplot(mpg, aes(x = hwy, fill = drv)) +
+    geom_density(alpha = 0.3) +
+    scale_fill_brewer(palette = 'Pastel1')
+```
+
+And to customize individual features of the plot, you use `theme`. The `theme`
+options are quite extensive, so if you want to look more into it, check out
+`?theme` or the very detailed documentation
+[here](http://docs.ggplot2.org/dev/vignettes/themes.html). There is a nice
+graphic right above "Complete and incomplete theme objects" section, near the
+bottom of the web document.
+
+```{r}
+ggplot(mpg, aes(x = hwy, fill = drv)) +
+    geom_density(alpha = 0.3) +
+    scale_fill_brewer(palette = 'Dark2') +
+    theme(panel.border = element_blank(), # panel = background of the entire plot
+          panel.background = element_blank(),
+          panel.grid.major = element_line(colour = 'grey90'),
+          legend.position = 'top',
+          line = element_line(colour = 'black'),
+          axis.line.y = element_line(colour = 'black'),
+          axis.line.x = element_line(colour = 'black'))
+```
+
+# Resources:
+
+- [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) 
+(in RStudio 'Help -> Cheatsheets -> Data Visualization')
+- [ggplot2 documentation](http://docs.ggplot2.org/current/)
+- [Tutorial from a course](http://tutorials.iq.harvard.edu/R/Rgraphics/Rgraphics.html)
+- [DataCamp tutorials](https://www.datacamp.com/courses/data-visualization-with-ggplot2-1)
