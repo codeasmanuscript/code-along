@@ -2,7 +2,7 @@
 title: Basic statistics and R commands
 details: Learn about common R and statistic commands.
 location: FG423
-date: 2016-10-06
+date: 2016-10-13
 time: '13:00'
 topic: basic stats and R
 packages: '"broom"'
