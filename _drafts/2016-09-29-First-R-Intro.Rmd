@@ -1,0 +1,94 @@
+---
+layout: post
+title: Brief introduction to using R and RStudio
+details: Learn how to navigate RStudio and how to use R.
+location: FG320
+date: 2016-09-29
+time: '13:00'
+topic: intro to R
+---
+
+The basics: R is a programming language and statistical computing environment.
+RStudio is an app that allows you to interact with R, but they are created by
+completely different groups/organizations. Think of R as the backend and RStudio
+as the frontend.
+
+In the session we went over the layout and use of RStudio, how to send code from
+R scrips (`.R` files), how to use R projects (`.Rproj` files), and how to
+install packages to enhance the abilities of R. Everything in R is an object and
+every action is called a function.
+
+Here is some of the code we went over:
+
+```{r}
+# This is a comment
+
+# Look at first 6 rows of the builtin practice dataset called swiss:
+head(swiss)
+
+# Look at the first 10 rows:
+head(swiss, n = 10)
+
+# We can load data by running read.csv. In this case I am importing a dataset
+# from my codeasmanuscript website. Assigning the dataset using <- into the ds
+# object allows you to use it later in your code.
+ds <- read.csv("http://codeasmanuscript.org/states_data.csv")
+
+# Looking at the contents:
+head(ds)
+
+# Compared with:
+ds
+
+# Since everything is an object, you can also look at functions:
+head
+
+# If you need help, use the ?. For instance ?head
+
+# To access a specific column in the dataset, use the dollar sign $
+ds$Income
+
+# Doing this allows you to run specific basic statistics on the code
+mean(ds$Income)
+sd(ds$Income) # standard deviation
+
+# A quick way to look at the data is using the summary function.
+summary(ds)
+
+# After you have installed a package (in this case dplyr, tidyr, and ggplot2)
+# you can load them by using library.
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+# Below is some code that is a bit complicated, but I want to show it to give 
+# a demo on the power of using R. This bit of code can create a table for you 
+# to eventually use in a manuscript.
+ds %>%
+    tbl_df() %>%
+    select(Population, Income, LifeExp) %>%
+    gather(Measure, Value) %>%
+    group_by(Measure) %>%
+    summarise(Mean = paste0(round(mean(Value), 2)),
+              SD = paste0(round(sd(Value), 2)),
+              MeanSD = paste0(Mean, " (", SD, ")")) 
+
+# And this code creates a figure.
+ggplot(ds, aes(x = Population, y = Income)) +
+    geom_point() +
+    geom_smooth(method = "lm") +
+    theme_bw() +
+    labs(y = "Income ($$)",
+         x = "Population (00)")
+```
+
+We also went over using R Markdown files to interweave R code and text for use
+when you make a manuscript or thesis! See the example [here](https://github.com/codeasmanuscript/code-along/blob/gh-pages/misc/report.Rmd).
+To convert this file to a Word document, you can type `Ctrl-Shift-K` (for knit).
+
+# Resources
+
+- [Official R website with a list of packages](https://cran.r-project.org/)
+- [Learning R for data analysis (excellent resource!)](http://r4ds.had.co.nz/)
+- [Rstudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/) (also
+found in `Help -> Cheatsheets` in Rstudio)

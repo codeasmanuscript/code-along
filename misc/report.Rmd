@@ -1,0 +1,44 @@
+---
+title: "Report"
+author: "Luke W. Johnston"
+date: "September 29, 2016"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+ds <- read.csv("http://codeasmanuscript.org/states_data.csv")
+```
+
+## Table of results
+
+This is my **descriptive** table of *my* data.
+
+```{r table}
+ds %>%
+    tbl_df() %>%
+    select(Population, Income, LifeExp) %>%
+    gather(Measure, Value) %>%
+    group_by(Measure) %>%
+    summarise(Mean = paste0(round(mean(Value), 2)),
+              SD = paste0(round(sd(Value), 2)),
+              MeanSD = paste0(Mean, " (", SD, ")")) %>% 
+    select(Measure, MeanSD) %>% 
+    knitr::kable()
+```
+
+## Including Plots
+
+This is my plot.
+
+```{r plot}
+ggplot(ds, aes(x = Population, y = Income)) +
+    geom_point() +
+    geom_smooth(method = "lm") +
+    theme_bw() +
+    labs(y = "Income ($$)",
+         x = "Population (00)")
+```
