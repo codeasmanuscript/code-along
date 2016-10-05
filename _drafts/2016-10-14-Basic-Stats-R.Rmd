@@ -1,0 +1,61 @@
+---
+title: Basic statistics and R commands
+details: Learn about common R and statistic commands.
+location: FG423
+date: 2016-10-14
+time: '13:00'
+topic: basic stats and R
+packages: '"broom"'
+permalink: /404
+---
+
+Outline:
+
+- Basic descriptive (mean, median, SD, IQR)
+- t-test
+- Correlation
+- ANOVA
+- Linear regression
+- Logistic regression
+
+```{r}
+library(broom)
+ds <- read.csv("http://codeasmanuscript.org/states_data.csv")
+head(ds)
+str(ds)
+summary(ds)
+
+mean(ds$Frost)
+median(ds$Population)
+sd(ds$Illiteracy)
+IQR(ds$Area)
+
+t.test(ds$Population, ds$HS.Grad)
+tidy(t.test(ds$Population, ds$HS.Grad))
+
+cor(ds$LifeExp, ds$Population)
+cor.test(ds$LifeExp, ds$Population)
+cor(ds[c('Frost', 'Population', 'Area')])
+tidy(cor.test(ds$LifeExp, ds$Population))
+tidy(cor(ds[c('Frost', 'Population', 'Area')]))
+tidy(cor(ds[c('Frost', 'Population', 'Area')]))
+tidy(cor(ds[c('Frost', 'Population', 'Area')], 
+         method = 'spearman'))
+tidy(cor(ds[c('Frost', 'Population', 'Area')], 
+         use = 'complete.obs',
+         method = 'spearman'))
+
+aov(Sepal.Length ~ Species, data = iris)
+summary(aov(Sepal.Length ~ Species, data = iris))
+tidy(aov(Sepal.Length ~ Species, data = iris))
+
+glm(Murder ~ Income, data = ds, family = gaussian())
+summary(glm(Murder ~ Income, data = ds, family = gaussian()))
+tidy(glm(Murder ~ Income, data = ds, family = gaussian()))
+
+glm(group ~ extra, data = sleep, family = binomial())
+summary(glm(group ~ extra, data = sleep, family = binomial()))
+tidy(glm(group ~ extra, data = sleep, family = binomial()))
+
+```
+
