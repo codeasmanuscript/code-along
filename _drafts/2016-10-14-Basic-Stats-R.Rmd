@@ -1,4 +1,5 @@
 ---
+layout: post
 title: Basic statistics and R commands
 details: Learn about common R and statistic commands.
 location: FG423
@@ -6,56 +7,127 @@ date: 2016-10-14
 time: '13:00'
 topic: basic stats and R
 packages: '"broom"'
-permalink: /404
+video: "https://www.youtube.com/watch?v=eZbMtHAUMXQ"
 ---
 
-Outline:
+This is the code that we went over during the session.
 
-- Basic descriptive (mean, median, SD, IQR)
-- t-test
-- Correlation
-- ANOVA
-- Linear regression
-- Logistic regression
+Outline of statistics code we used:
+
+- mean: mean
+- sd: standard deviation
+- median: median
+- IQR: Interquartile range
+- cor: correlation
+- cor.test: correlation with p-value
+- aov: ANOVA
+- glm: linear regression
+
+## Loading the data!
+
+Import the data from the Code As Manuscript website to use in this session.
 
 ```{r}
-library(broom)
 ds <- read.csv("http://codeasmanuscript.org/states_data.csv")
-head(ds)
-str(ds)
-summary(ds)
+names(ds)
+```
 
-mean(ds$Frost)
-median(ds$Population)
-sd(ds$Illiteracy)
-IQR(ds$Area)
+## Simple descriptive statistics
 
-t.test(ds$Population, ds$HS.Grad)
-tidy(t.test(ds$Population, ds$HS.Grad))
+The `$` tells R to take a column from the dataset. So `ds$Population` tells R to
+take the Population column from the ds object.
 
-cor(ds$LifeExp, ds$Population)
-cor.test(ds$LifeExp, ds$Population)
-cor(ds[c('Frost', 'Population', 'Area')])
-tidy(cor.test(ds$LifeExp, ds$Population))
-tidy(cor(ds[c('Frost', 'Population', 'Area')]))
-tidy(cor(ds[c('Frost', 'Population', 'Area')]))
-tidy(cor(ds[c('Frost', 'Population', 'Area')], 
-         method = 'spearman'))
-tidy(cor(ds[c('Frost', 'Population', 'Area')], 
-         use = 'complete.obs',
-         method = 'spearman'))
+```{r}
+mean(ds$Population)
+sd(ds$Population)
 
-aov(Sepal.Length ~ Species, data = iris)
-summary(aov(Sepal.Length ~ Species, data = iris))
-tidy(aov(Sepal.Length ~ Species, data = iris))
+round(median(ds$LifeExp), 1)
+IQR(ds$LifeExp)
+```
 
-glm(Murder ~ Income, data = ds, family = gaussian())
-summary(glm(Murder ~ Income, data = ds, family = gaussian()))
-tidy(glm(Murder ~ Income, data = ds, family = gaussian()))
+You can use R code inline too:
 
-glm(group ~ extra, data = sleep, family = binomial())
-summary(glm(group ~ extra, data = sleep, family = binomial()))
-tidy(glm(group ~ extra, data = sleep, family = binomial()))
+    The median of Life Expectancy in the States dataset is: `r round(median(ds$LifeExp),1)`
 
+The median of Life Expectancy in the States dataset is: `r round(median(ds$LifeExp),1)`
+
+You can put the results of the statistical output into an object called `Corr` (R is *case-sensitive*). And if we load the `broom` package, we can use the `tidy()` function 
+
+```{r}
+cor(ds$Population, ds$LifeExp)
+Corr <- cor.test(ds$Population, ds$LifeExp)
+library(broom)
+Corr2 <- tidy(Corr)
+```
+
+Again, you can use inline R code to convert to text:
+
+    The correlation is `r Corr2$estimate` and it is not significant (p=`r Corr2$p.value`).
+
+The correlation is `r Corr2$estimate` and it is not significant (p=`r Corr2$p.value`).
+
+Running an ANOVA uses a slightly different syntax: the `~` (tilde) is used in R
+to indicate that it is a formula. So in this case, you are seeing the role of
+`Division` (the X variable as a factor/discrete) on `Population` (the y variable
+as a continuous variable).
+
+```{r}
+AOV <- aov(Population ~ Division, data = ds)
+summary(AOV)
+AOV2 <- tidy(AOV)
+```
+
+    There is a significant difference in Population between Divisions (p=`r AOV2$p.value[1]`). The table is below:
+
+There is a significant difference in Population between Divisions (p=`r AOV2$p.value[1]`). The table is below:
+
+You can put the ANOVA results into a table too!
+
+```{r}
+knitr::kable(AOV2)
+```
+
+Linear regression uses the same notation as ANOVA with the `~`. In this case, since this is a linear regression you need to use a Gaussian distribution, as `LifeExp` (the y variable) is continuous.
+
+```{r}
+fit <- glm(LifeExp ~ Income, data = ds, family = gaussian)
+summary(fit)
+fit2 <- tidy(fit)
+knitr::kable(fit2)
+```
+
+You can use math formulas inside R Markdown files too:
+
+    $$y = Xb + e$$
+    
+The regression formula is similar to the formula style in R with the `~`.
+    
+$$y = Xb + e$$
+    
+If you want to go through each step of how linear regression works, I wrote a 
+[blog on understanding linear regression](http://blog.lukewjohnston.com/variance-linear-regression). Check it.
+
+We can add covariates (confounders, etc) to the model, just like the math formula.
+
+$$y = x1b + x2b + e$$
+
+And in R:
+
+```{r}
+fit_covar <- glm(LifeExp ~ Income + Population, data = ds, family = gaussian)
+summary(fit_covar)
+fit_covar2 <- tidy(fit_covar)
+knitr::kable(fit_covar2)
+```
+
+If you want to select just certain variables to display in a table, you can more easily do that using the package `dplyr`:
+
+```{r}
+library(dplyr)
+fit_covar2 %>% 
+    select(Variable = term, 
+           Beta = estimate, 
+           P = p.value) %>% 
+    knitr::kable()
 ```
 
