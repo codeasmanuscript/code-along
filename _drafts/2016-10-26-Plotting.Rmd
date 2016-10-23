@@ -4,7 +4,7 @@ title: Data visualization in R using ggplot2
 details: Learn to plot your data into beautiful, publication-ready figures.
 location: FG423
 date: 2016-10-26
-time: '13:00'
+time: '13:30'
 topic: plotting
 packages: '"ggplot2"'
 last_modified: `r Sys.Date()`
