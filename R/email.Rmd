@@ -2,7 +2,7 @@ Hey `r params$to` could you send this to the graduate students and post-docs? Th
 
 -----
 
-Interested in doing R? Come to this bimonthly workshop to learn about `r workshop$topic`. Details below:
+Interested in doing R? Come to this twice-monthly workshop to learn about `r workshop$topic`. Details below:
 
 <b>`r workshop$title`</b>
 

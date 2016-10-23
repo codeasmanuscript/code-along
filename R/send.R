@@ -39,7 +39,7 @@ if (!is.null(workshop$packages)) {
 sender <- 'luke.johnston@mail.utoronto.ca'
 topic <- paste0(toupper(substr(workshop$topic, 1, 1)),
                 substr(workshop$topic, 2, nchar(workshop$topic)))
-subject <- paste0('DNS R workshop this Thursday: ', topic)
+subject <- paste0('DNS R workshop this Wednesday: ', topic)
 
 if (params$to == 'Louisa') {
     recipient <- 'louisa.kung@utoronto.ca'
