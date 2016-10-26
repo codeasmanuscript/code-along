@@ -141,7 +141,7 @@ for palettes by running `?scale_fill_brewer` to look at the help file.
 ```{r}
 ggplot(mpg, aes(x = hwy, fill = drv)) +
     geom_density(alpha = 0.3) +
-    scale_fill_brewer(palette = 'Pastel1')
+    scale_fill_brewer(palette = 'Dark2')
 ```
 
 Similarly, you can use the `scale_` function to make changes to the legend.
@@ -149,7 +149,7 @@ Similarly, you can use the `scale_` function to make changes to the legend.
 ```{r}
 ggplot(mpg, aes(x = hwy, fill = drv)) +
     geom_density(alpha = 0.3) +
-    scale_fill_brewer(palette = 'Pastel1') +
+    scale_fill_brewer(palette = 'Dark2') +
       scale_fill_discrete(name = "drivetrain", 
                       breaks = c("4", "f", "r"), 
                       labels = c("Four wheel", 
@@ -163,7 +163,7 @@ Using `labs` will allow you to modify or add titles to the figure.
 ```{r}
 ggplot(mpg, aes(x = hwy, fill = drv)) +
     geom_density(alpha = 0.3) +
-    scale_fill_brewer(palette = 'Pastel1') +
+    scale_fill_brewer(palette = 'Dark2') +
     ggplot(mpg, aes(x = hwy, fill = drv)) +
     geom_density(alpha = 0.3) +
     scale_fill_brewer(palette = 'Pastel1') +
@@ -188,7 +188,7 @@ bottom of the web document.
 ```{r}
 ggplot(mpg, aes(x = hwy, fill = drv)) +
     geom_density(alpha = 0.3) +
-    scale_fill_brewer(palette = 'Pastel1') +
+    scale_fill_brewer(palette = 'Dark2') +
       scale_fill_discrete(name = "drivetrain", 
                       breaks = c("4", "f", "r"), 
                       labels = c("Four wheel", 
