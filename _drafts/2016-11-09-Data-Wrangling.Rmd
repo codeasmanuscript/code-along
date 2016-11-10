@@ -1,4 +1,5 @@
 ---
+layout: post
 title: Data Wrangling in R
 details: Learn to wrangle (aka 'manipulate') your data easily.
 location: FG423
@@ -6,5 +7,89 @@ date: 2016-11-09
 time: '13:00'
 topic: data wrangling
 packages: c("dplyr", "tidyr")
-permalink: /404
+video: "https://www.youtube.com/watch?v=QYEzLVs2-4M"
 ---
+
+For more detailed notes and explanations, see [this webpage](http://codeasmanuscript.org/wrangling).
+Another great resource for beginners and those learning data analysis and wrangling
+is the free online book [R for Data Science](http://r4ds.had.co.nz/).
+
+# Code used during session
+
+```{r}
+library(dplyr)
+library(tidyr)
+```
+
+dplyr commands:
+
+- select
+- rename
+- mutate
+- filter
+- group_by
+- summarise
+
+```{r}
+ds <- read.csv("http://codeasmanuscript.org/states_data.csv")
+head(ds)
+```
+
+```{r}
+# %>% 
+names(ds)
+ds %>% 
+    select(Population, Frost, Area) %>% 
+    filter(Area > 100000)
+#ds[2, ]
+```
+
+```{r}
+names(ds)
+ds %>% 
+    mutate(PopPerArea = Population / Area) %>% 
+    select(PopPerArea)
+```
+
+```{r}
+#names(ds)
+ds %>% 
+    select(Population, Income, Frost, Area, LifeExp) %>% 
+    gather(Measure, Value) %>% 
+    group_by(Measure) %>% 
+    summarise(Mean = round(mean(Value), 1),
+              SD = round(sd(Value), 1),
+              MeanSD = paste0(Mean, ' (', SD, ')')) %>% 
+    select(-Mean, -SD) %>% 
+    knitr::kable(caption = "Table 1: Basic demographics")
+```
+
+```{r}
+ds %>% 
+    select(Region, Population, Income) %>% 
+    gather(Measure, Value, -Region) %>% 
+    group_by(Region, Measure) %>% 
+    summarise(Mean = round(mean(Value), 1),
+              SD = round(sd(Value), 1),
+              MeanSD = paste0(Mean, ' (', SD, ')')) %>% 
+    select(-Mean, -SD) %>% 
+    spread(Region, MeanSD) %>% 
+    knitr::kable(caption = "Table 2: Characteristics by Region")
+```
+
+```{r}
+#library(tidyverse)
+library(ggplot2)
+library(tibble)
+ds %>% 
+    select(Population, Income, Frost, Area) %>% 
+    cor() %>% 
+    as.data.frame() %>% 
+    rownames_to_column() %>% 
+    rename(Var1 = rowname) %>% 
+    gather(Var2, Correlation, -Var1) %>% 
+    ggplot(aes(y = Var1, x = Var2)) +
+    geom_tile(aes(fill = Correlation))
+```
+
+
