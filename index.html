@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<p class="message">Please read and follow these <a href="{{ site.github.url }}/instructions">instructions</a> before coming to any of the workshops.</p>
+{% include install-note.html %}
 
 <div class="posts">
   {% for post in site.posts reversed %}
