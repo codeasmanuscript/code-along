@@ -3,7 +3,7 @@ layout: post
 title: Principles of managing and analyzing data
 details: Learn the principles of managing data from storing to analyzing. No coding this session.
 location: FG423
-date: 2017-01-11
+date: 2017-01-18
 time: '13:00'
 topic: data management
 permalink: /404
