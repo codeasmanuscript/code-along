@@ -1,14 +1,12 @@
 ---
 layout: post
-title: Processing raw data into tidy data in R
-details: Learn how process your completely raw data into an analyzable and tidy format. Bring your own data!
+title: Principles of managing and analyzing data
+details: Learn the principles of managing data from storing to analyzing. No coding this session.
 location: FG423
-date: 2016-12-07
+date: 2017-01-11
 time: '13:00'
-topic: tidy data
-packages: '"readr"'
-video: "http://www.youtube.com/watch?v=qc75kuENzxQ"
-last_modified: `r Sys.Date()`
+topic: data management
+permalink: /404
 ---
 
 In R, as in most statistical and programming languages, how your data is
@@ -133,3 +131,10 @@ read_csv("http://codeasmanuscript.github.io/code-along/data/tidy-data-4.csv",
 - [A code heavier version of the Tidy Data paper](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html)
 - [`readr` documentation](https://github.com/hadley/readr/blob/master/README.md)
 - [Cheatsheat on aspects of working with data (including tidy data)](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
+
+
+## Outline:
+
+- show examples of tidy data piped into analyzed data
+- use package `data.tree` to make example folder structure.
+    - see also http://stackoverflow.com/questions/36094183/how-to-build-a-dendrogram-from-a-directory-tree
