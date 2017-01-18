@@ -9,3 +9,91 @@ packages: c("rmarkdown", "knitr", "captioner")
 permalink: /404
 video: "https://www.youtube.com/watch?v=AfFRWRCAyHQ"
 ---
+
+<!--
+More detailed explanation of Rmarkdown can be found at the 
+
+```
+---
+title: "DNS session"
+author: "Luke W. Johnston"
+date: "November 30, 2016"
+bibliography: sample.bib
+csl: ama.csl
+output: word_document
+---
+
+
+
+# Header 1
+
+## Header 2
+
+### Header 3
+
+**bold**
+
+*italics*
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+
+{% highlight r %}
+library(captioner)
+tab_nums <- captioner(prefix = "Table")
+tab1 <- tab_nums("tab1", "This is the caption for table 1. Looking at the regression from the swiss dataset.")
+#tab1
+
+fig_nums <- captioner(prefix = "Figure")
+fig1 <- fig_nums("fig1", "This is a caption for figure 1, showing a scatter plot.")
+{% endhighlight %}
+
+If you want to see the results, see Table  1.
+
+
+{% highlight r %}
+library(pander)
+pander(lm(Fertility ~ Education, data = swiss), caption = tab1)
+{% endhighlight %}
+
+
+--------------------------------------------------------------
+     &nbsp;        Estimate   Std. Error   t value   Pr(>|t|) 
+----------------- ---------- ------------ --------- ----------
+  **Education**    -0.8624      0.1448     -5.954   3.659e-07 
+
+ **(Intercept)**    79.61       2.104       37.84   9.302e-36 
+--------------------------------------------------------------
+
+Table: Table  1: This is the caption for table 1. Looking at the regression from the swiss dataset.
+
+## Including Plots
+
+You can also embed plots here (see Figure  1), for example:
+
+![Figure  1: This is a caption for figure 1, showing a scatter plot.]({{ site.github.url }}/images/2016-11-30-Reproducible-Dynamic-Reports/pressure-1.png)
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+Inline numbers 70.14
+
+# Citations
+
+
+{% highlight r %}
+library(curl)
+curl_download("http://codeasmanuscript.github.io/code-along/misc/sample.bib", "sample.bib")
+curl_download("https://raw.githubusercontent.com/citation-style-language/styles/master/american-medical-association.csl", "ama.csl")
+{% endhighlight %}
+
+According to certain authors blah blah [@Lash2007a]
+
+These other authors say ... [@An2013a; @Vandenbroucke2007a]
+
+# References
+
+```
