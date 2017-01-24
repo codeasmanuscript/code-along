@@ -1,4 +1,5 @@
 ---
+layout: post
 title: Reproducible and dynamic manuscripts/theses in R
 details: Learn how to use RStudio to write up your next paper or thesis.
 location: FG423
@@ -73,17 +74,15 @@ If you want to see the results, see Table  1.
 
 {% highlight r %}
 library(pander)
-pander(lm(Fertility ~ Education, data = swiss), caption = tab1)
+pander(lm(Fertility ~ Education, data = swiss), caption = tab1, style = 'rmarkdown')
 {% endhighlight %}
 
 
---------------------------------------------------------------
-     &nbsp;        Estimate   Std. Error   t value   Pr(>|t|) 
------------------ ---------- ------------ --------- ----------
-  **Education**    -0.8624      0.1448     -5.954   3.659e-07 
 
- **(Intercept)**    79.61       2.104       37.84   9.302e-36 
---------------------------------------------------------------
+|      &nbsp;       |  Estimate  |  Std. Error  |  t value  |  Pr(>|t|)  |
+|:-----------------:|:----------:|:------------:|:---------:|:----------:|
+|   **Education**   |  -0.8624   |    0.1448    |  -5.954   | 3.659e-07  |
+|  **(Intercept)**  |   79.61    |    2.104     |   37.84   | 9.302e-36  |
 
 Table: Table  1: This is the caption for table 1. Looking at the regression from the swiss dataset.
 

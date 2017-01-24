@@ -1,4 +1,5 @@
 ---
+layout: post
 title: Reproducible and dynamic manuscripts/theses in R
 details: Learn how to use RStudio to write up your next paper or thesis.
 location: FG423
@@ -69,9 +70,9 @@ fig1 <- fig_nums("fig1", "This is a caption for figure 1, showing a scatter plot
 
 If you want to see the results, see `r tab_nums("tab1", display = 'cite')`.
 
-```{r table}
+```{r table, results='asis'}
 library(pander)
-pander(lm(Fertility ~ Education, data = swiss), caption = tab1)
+pander(lm(Fertility ~ Education, data = swiss), caption = tab1, style = 'rmarkdown')
 ```
 
 ## Including Plots
