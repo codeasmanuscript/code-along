@@ -6,7 +6,6 @@ date: 2016-11-30
 time: '13:00'
 topic: report generation
 packages: c("rmarkdown", "knitr", "captioner")
-permalink: /404
 video: "https://www.youtube.com/watch?v=AfFRWRCAyHQ"
 ---
 
