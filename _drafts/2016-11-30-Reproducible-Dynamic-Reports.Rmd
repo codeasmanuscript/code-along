@@ -10,8 +10,18 @@ permalink: /404
 video: "https://www.youtube.com/watch?v=AfFRWRCAyHQ"
 ---
 
-<!--
 More detailed explanation of Rmarkdown can be found at the 
+[RStudio Website](http://rmarkdown.rstudio.com/) or in the 
+[pandoc website](http://pandoc.org/) (which is what R Markdown uses to convert
+to other documents).
+
+This was the code shown for the session:
+
+## YAML Header
+
+R Markdown files should have at the top a YAML header. YAML is just a series of
+settings to use for the document, like title, author, what document to create
+(Word, PDF, etc), where your bibliography is located etc.
 
 ```
 ---
@@ -22,26 +32,31 @@ bibliography: sample.bib
 csl: ama.csl
 output: word_document
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Code chunk
+
+Code chunks allow you to insert R output (like results, plots, tables, numbers,
+etc) into the document. This is the primary strength of using R Markdown. Use
+Ctrl-Alt-I to insert a code chunk when using RStudio.
+
+## Headers
+
+Inserting a header, such as Introductions or Methods, is easy:
+
+```
 # Header 1
 
 ## Header 2
 
 ### Header 3
+```
 
-**bold**
+## Bolding and italics
 
-*italics*
+To **bold** use `**bold**`. To *italicize* use `*italicize*`.
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+## Some code used in the session:
 
 ```{r captions}
 library(captioner)
@@ -80,10 +95,14 @@ curl_download("http://codeasmanuscript.github.io/code-along/misc/sample.bib", "s
 curl_download("https://raw.githubusercontent.com/citation-style-language/styles/master/american-medical-association.csl", "ama.csl")
 ```
 
-According to certain authors blah blah [@Lash2007a]
+According to certain authors blah blah `[@Lash2007a]`
 
-These other authors say ... [@An2013a; @Vandenbroucke2007a]
+These other authors say ... `[@An2013a; @Vandenbroucke2007a]`
 
-# References
+It's good to have the last header be:
 
 ```
+# References
+```
+
+... since the references will be inserted at the end.
