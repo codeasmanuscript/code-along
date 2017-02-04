@@ -18,3 +18,11 @@ Later:
 - reproducible reports
 - Version control using Git in RStudio
 - Combining data wrangling with ggplot2 (heatmaps, boxplots, etc.)
+
+This semester (Winter 2017):
+- Processing raw data
+- Principles of effective data visualization
+    - Why to not use bar plot, show raw data values whenever possible
+- Reproducible reports
+- Data wrangling
+- A more detailed look into linear regression
