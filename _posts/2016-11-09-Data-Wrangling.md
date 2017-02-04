@@ -8,6 +8,7 @@ time: '13:00'
 topic: data wrangling
 packages: c("dplyr", "tidyr")
 video: "https://www.youtube.com/watch?v=QYEzLVs2-4M"
+notes: true
 ---
 
 For more detailed notes and explanations, see [this webpage](http://codeasmanuscript.org/wrangling).

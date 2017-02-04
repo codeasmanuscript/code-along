@@ -8,6 +8,7 @@ time: '13:00'
 topic: reusing your code
 output: slidy_presentation
 video: "https://www.youtube.com/watch?v=a0UJHS7Kr3o"
+notes: true
 ---
 
 # How to reuse your code... Use functions!

@@ -8,6 +8,7 @@ time: '13:00'
 topic: report generation
 packages: c("rmarkdown", "knitr", "captioner")
 video: "https://www.youtube.com/watch?v=AfFRWRCAyHQ"
+notes: true
 ---
 
 More detailed explanation of Rmarkdown can be found at the 

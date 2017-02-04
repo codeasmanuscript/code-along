@@ -6,6 +6,7 @@ location: FG320
 date: 2016-09-29
 time: '13:00'
 topic: intro to R
+notes: true
 ---
 
 The basics: R is a programming language and statistical computing environment.

@@ -8,6 +8,7 @@ time: '13:00'
 topic: basic stats and R
 packages: '"broom"'
 video: "https://www.youtube.com/watch?v=eZbMtHAUMXQ"
+notes: true
 ---
 
 This is the code that we went over during the session.
