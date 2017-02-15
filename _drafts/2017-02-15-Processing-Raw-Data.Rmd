@@ -1,0 +1,82 @@
+---
+title: Process your raw data into useable data in R
+details: Learn to use R programming to convert your raw data into analyzable data.
+location: FG423
+date: 2017-02-15
+time: '13:00'
+topic: data processing
+packages: '"readr"'
+permalink: /404
+---
+
+## Assumptions:
+
+- The raw data is in a plain text format (.txt, .csv, .tsv)
+
+```{r}
+library(readr)
+```
+
+```{r}
+
+read_lines("http://codeasmanuscript.github.io/code-along/data/tidy-data-4.csv")
+
+library(dplyr)
+read_csv("http://codeasmanuscript.github.io/code-along/data/tidy-data-4.csv",
+         skip = 22) %>% 
+    select(Sample, Assay, CalcConcMean = `Calc. Conc. Mean`)
+
+read_lines("http://codeasmanuscript.github.io/code-along/data/tidy-data-3.txt")
+write_lines(read_lines("http://codeasmanuscript.github.io/code-along/data/tidy-data-3.txt"), 'tidy-data-3.txt')
+read_tsv("tidy-data-3.txt")
+d1 <- read_tsv("tidy-data-3.txt", 
+         skip = 3, 
+         col_names = c('D1', 'D2', paste0('X', 1:12), 'D3', 'D4'),
+         n_max = 8)
+d2 <- d1[3:14]
+d2
+
+library(tidyr)
+d3 <- d2 %>% 
+    mutate(PlateRow = toupper(letters[1:8])) %>% 
+    gather(PlateColumn, Signal, -PlateRow)
+d3
+
+#read_lines("http://codeasmanuscript.github.io/code-along/data/tidy-data-1.csv")
+read_lines("../data/tidy-data-1.csv")
+read_csv("../data/tidy-data-1.csv",
+         skip = 1,
+         col_names = c('DietGroup', paste0('Exercise.', 1:6), paste0('Control.', 1:6))) %>% 
+    gather(TreatmentGroup, WeightGain, -DietGroup) %>% 
+    separate(TreatmentGroup, c('TreatmentGroup', 'Drop')) %>% 
+    select(-Drop)
+
+
+write_lines(read_lines("http://codeasmanuscript.github.io/code-along/data/tidy-data-3.txt"), 'tidy-data-3-1.txt')
+write_lines(read_lines("http://codeasmanuscript.github.io/code-along/data/tidy-data-3.txt"), 'tidy-data-3-2.txt')
+write_lines(read_lines("http://codeasmanuscript.github.io/code-along/data/tidy-data-3.txt"), 'tidy-data-3-3.txt')
+data_files <- list.files(pattern = '*.txt')
+substr(data_files[1], nchar(data_files[1]) - 4, nchar(data_files[1]) - 4)
+
+import_txt_file <- function(filename) {
+    d1 <- read_tsv(
+        filename,
+        skip = 3,
+        col_names = c('D1', 'D2', paste0('X', 1:12), 'D3', 'D4'),
+        n_max = 8
+        )
+    
+    d2 <- d1[3:14]
+    
+    d3 <- d2 %>%
+        mutate(PlateRow = toupper(letters[1:8])) %>%
+        gather(PlateColumn, Signal, -PlateRow) %>% 
+        mutate(SampleRun = substr(filename, nchar(filename) - 4, nchar(filename) - 4))
+    
+    return(d3)
+}
+
+data_list <- lapply(data_files, import_txt_file) 
+data_combined <- bind_rows(data_list)
+```
+
