@@ -1,4 +1,5 @@
 ---
+layout: post
 title: Process your raw data into useable data in R
 details: Learn to use R programming to convert your raw data into analyzable data.
 location: FG423
@@ -6,77 +7,129 @@ date: 2017-02-15
 time: '13:00'
 topic: data processing
 packages: '"readr"'
-permalink: /404
+video: "https://www.youtube.com/watch?v=bwUlFEifP38&list=UUCGj40G8pajVVu4jE14su3Q&index=1"
+notes: true
 ---
 
-## Assumptions:
+## Notes from session:
 
-- The raw data is in a plain text format (.txt, .csv, .tsv)
+Assumption about the data:
+
+- The raw data is in a plain text format (.txt, .csv, .tsv) meaning it does not
+need special software to open (i.e. .xls, .xlsx, etc).
+
+First let's load up the package we'll use to actually import the data into R.
 
 ```{r}
 library(readr)
 ```
 
+Next we use `read_lines` to import just the lines (not as a dataset) into R to
+look at it. Then we use `read_csv` to import the data as a dataframe. `skip=22`
+means skip the first 22 lines.
+
 ```{r}
+head(read_lines("https://codeasmanuscript.github.io/code-along/data/tidy-data-4.csv"))
 
-read_lines("http://codeasmanuscript.github.io/code-along/data/tidy-data-4.csv")
-
-library(dplyr)
-read_csv("http://codeasmanuscript.github.io/code-along/data/tidy-data-4.csv",
-         skip = 22) %>% 
-    select(Sample, Assay, CalcConcMean = `Calc. Conc. Mean`)
-
-read_lines("http://codeasmanuscript.github.io/code-along/data/tidy-data-3.txt")
-write_lines(read_lines("http://codeasmanuscript.github.io/code-along/data/tidy-data-3.txt"), 'tidy-data-3.txt')
-read_tsv("tidy-data-3.txt")
-d1 <- read_tsv("tidy-data-3.txt", 
-         skip = 3, 
-         col_names = c('D1', 'D2', paste0('X', 1:12), 'D3', 'D4'),
-         n_max = 8)
-d2 <- d1[3:14]
-d2
-
-library(tidyr)
-d3 <- d2 %>% 
-    mutate(PlateRow = toupper(letters[1:8])) %>% 
-    gather(PlateColumn, Signal, -PlateRow)
-d3
-
-#read_lines("http://codeasmanuscript.github.io/code-along/data/tidy-data-1.csv")
-read_lines("../data/tidy-data-1.csv")
-read_csv("../data/tidy-data-1.csv",
-         skip = 1,
-         col_names = c('DietGroup', paste0('Exercise.', 1:6), paste0('Control.', 1:6))) %>% 
-    gather(TreatmentGroup, WeightGain, -DietGroup) %>% 
-    separate(TreatmentGroup, c('TreatmentGroup', 'Drop')) %>% 
-    select(-Drop)
-
-
-write_lines(read_lines("http://codeasmanuscript.github.io/code-along/data/tidy-data-3.txt"), 'tidy-data-3-1.txt')
-write_lines(read_lines("http://codeasmanuscript.github.io/code-along/data/tidy-data-3.txt"), 'tidy-data-3-2.txt')
-write_lines(read_lines("http://codeasmanuscript.github.io/code-along/data/tidy-data-3.txt"), 'tidy-data-3-3.txt')
-data_files <- list.files(pattern = '*.txt')
-substr(data_files[1], nchar(data_files[1]) - 4, nchar(data_files[1]) - 4)
-
-import_txt_file <- function(filename) {
-    d1 <- read_tsv(
-        filename,
-        skip = 3,
-        col_names = c('D1', 'D2', paste0('X', 1:12), 'D3', 'D4'),
-        n_max = 8
-        )
-    
-    d2 <- d1[3:14]
-    
-    d3 <- d2 %>%
-        mutate(PlateRow = toupper(letters[1:8])) %>%
-        gather(PlateColumn, Signal, -PlateRow) %>% 
-        mutate(SampleRun = substr(filename, nchar(filename) - 4, nchar(filename) - 4))
-    
-    return(d3)
-}
-
-data_list <- lapply(data_files, import_txt_file) 
-data_combined <- bind_rows(data_list)
+d4_1 <- read_csv("https://codeasmanuscript.github.io/code-along/data/tidy-data-4.csv",
+         skip = 22)
+head(d4_1)
 ```
 
+We can load the dplyr package to continue cleaning/processing the data.
+
+```{r}
+library(dplyr)
+d4_2 <- select(d4_1, Sample, Assay,
+       CalcConcMean = `Calc. Conc. Mean`)
+head(d4_2)
+```
+
+Now we have just the data we need to continue with the later analysis!
+
+Let's do a slightly more complicated raw dataset. Looks ugly right?
+
+```{r}
+d3_1 <- read_lines("https://codeasmanuscript.github.io/code-along/data/tidy-data-3.txt")
+head(d3_1)
+# write_lines saves the dataset as a file. This lets you look at the data more
+# closely, and in a less ugly format.
+# write_lines(d3_1, 'tidy-data-3.txt')
+```
+
+We only want the data in the rectangular format, the values arranged in the 8 by
+12 rows and columns. Since we don't want the first 3 rows (`skip`), only want 8
+rows (`n_max`), and we want to drop the first 2 and last two columns
+(`col_names` with a `D` in front), we include these options when importing the
+data.
+
+```{r}
+d3_2 <-
+    read_tsv(
+        "https://codeasmanuscript.github.io/code-along/data/tidy-data-3.txt",
+        skip = 3,
+        n_max = 8,
+        col_names = c('D1', 'D2', paste0('X', 1:12), 'D3', 'D4')
+    )
+head(d3_2)
+```
+
+Let's extract only the 3rd to 14th columns (using `[3:14]`), dropping the first
+two and last two columns.
+
+```{r}
+d3_3 <- d3_2[3:14]
+head(d3_3)
+```
+
+This is still in a rather messy format. Let's use the tidyr package to continue
+cleaning. The `%>%` pipe is like an actual pipe... it takes the data from
+`d3_3`, puts it into the `mutate` command, which continues into the `gather`
+command. `mutate` creates a new column, while `gather` converts from wide to
+long format.
+
+```{r}
+library(tidyr)
+
+d3_4 <- d3_3 %>%
+    mutate(PlateRow = LETTERS[1:8]) %>%
+    gather(PlateColumn, Signal, -PlateRow)
+head(d3_4)
+```
+
+The power of using code instead of manual becomes more obvious when you have to
+do this same steps for many other files. We'll do an example. Try the code on
+your own to see how it works!
+
+```{r, eval=FALSE}
+write_lines(d3_1, 'tidy-data-01.tsv')
+write_lines(d3_1, 'tidy-data-02.tsv')
+write_lines(d3_1, 'tidy-data-03.tsv')
+
+data_files <- list.files(pattern = '*.tsv')
+
+import_tsv_file <- function(filename) {
+    data <- read_tsv(
+        filename,
+        skip = 3,
+        n_max = 8,
+        col_names = c('D1', 'D2', paste0('X', 1:12), 'D3', 'D4')
+    )
+
+    data <- data[3:14]
+
+    data <- data %>%
+        mutate(PlateRow = LETTERS[1:8]) %>%
+        gather(PlateColumn, Signal, -PlateRow) %>%
+        mutate(MachineRun = substr(filename,
+                                   nchar(filename) - 5,
+                                   nchar(filename) - 4))
+
+    return(data)
+}
+
+data_combined <- lapply(data_files, import_tsv_file) %>%
+    bind_rows()
+
+data_combined
+```
