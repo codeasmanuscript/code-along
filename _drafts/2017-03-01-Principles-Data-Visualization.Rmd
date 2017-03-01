@@ -1,4 +1,5 @@
 ---
+layout: post
 title: Principles of effective data visualization (using R)
 details: Learn how to best plot your data (applicable to most other graphic software).
 location: FG423
@@ -6,7 +7,11 @@ date: 2017-03-01
 time: '13:00'
 topic: data visualization
 packages: '"ggplot2"'
-output: slidy_presentation
+video: "https://www.youtube.com/watch?v=DXWWCTFmaDQ"
+notes: true
+output: 
+    slidy_presentation:
+        incremental: true
 ---
 
 ## Some basic principles
@@ -28,7 +33,7 @@ Taken from various sources (see resources below)
 - Avoid bar plots: they hide the real data and distort the reality of the data
     - (unless the data is proportions/percents)
 - Avoid SEM as error bars: isn't a good measure of spread
-    - (use SD instead) 
+    - (use SD or interquartile range instead) 
 - Avoid pie charts: can easily unintentionally distort the data
     - (use bar charts with groups side by side)
 - Avoid 3D charts: they visually distort the data 
@@ -42,8 +47,7 @@ Taken from various sources (see resources below)
     
 ## Code
 
-```{r, eval=FALSE}
-
+```{r}
 fake_data <- data.frame(
     Group = as.factor(c(rep('Treatment', 10), rep('Control', 10))),
     Weight = c(rnorm(10, mean = 50, sd = 4), rnorm(10, mean = 60, sd = 5))
@@ -84,6 +88,5 @@ ggplot(iris, aes(y = Petal.Length, x = Petal.Width)) +
     facet_grid(~ Species, ) +
     theme_tufte(base_family = 'sans') +
     theme(panel.spacing = unit(2.5, 'lines'))
-
 ```
 
