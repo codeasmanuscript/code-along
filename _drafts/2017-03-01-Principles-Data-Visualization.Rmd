@@ -9,9 +9,6 @@ topic: data visualization
 packages: '"ggplot2"'
 video: "https://www.youtube.com/watch?v=DXWWCTFmaDQ"
 notes: true
-output: 
-    slidy_presentation:
-        incremental: true
 ---
 
 ## Some basic principles
