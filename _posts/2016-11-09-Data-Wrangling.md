@@ -20,34 +20,6 @@ is the free online book [R for Data Science](http://r4ds.had.co.nz/).
 
 {% highlight r %}
 library(dplyr)
-{% endhighlight %}
-
-
-
-{% highlight text %}
-#> 
-#> Attaching package: 'dplyr'
-{% endhighlight %}
-
-
-
-{% highlight text %}
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-{% endhighlight %}
-
-
-
-{% highlight text %}
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
-{% endhighlight %}
-
-
-
-{% highlight r %}
 library(tidyr)
 {% endhighlight %}
 

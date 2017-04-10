@@ -8,6 +8,7 @@ time: '13:00'
 topic: data management
 output: slidy_presentation
 video: "https://www.youtube.com/watch?v=P6fzSXVUmRc"
+notes: true
 ---
 
 # Main points

@@ -293,34 +293,6 @@ If you want to select just certain variables to display in a table, you can more
 
 {% highlight r %}
 library(dplyr)
-{% endhighlight %}
-
-
-
-{% highlight text %}
-#> 
-#> Attaching package: 'dplyr'
-{% endhighlight %}
-
-
-
-{% highlight text %}
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-{% endhighlight %}
-
-
-
-{% highlight text %}
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
-{% endhighlight %}
-
-
-
-{% highlight r %}
 fit_covar2 %>% 
     select(Variable = term, 
            Beta = estimate, 
