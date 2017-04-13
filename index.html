@@ -20,7 +20,7 @@ layout: default
         <li><strong>When:</strong> {{ post.date | date: "%B %d, %Y" }}, {{ post.time | date:"%I:%M %p" }} (may change)</li>
         <li><strong>Where:</strong> {{ post.location }}</li>
         {% if post.packages != nil %}<li><strong>Package(s) to install:</strong> <code>install.packages({{ post.packages }})</code></li>{% endif %}
-        {% if post.layout == "post" %}<li><strong>Notes:</strong> Code and notes are <a href="{{site.github.url }}{{ post.url }}">online here.</a></li>{% endif %}
+        {% if post.notes == true %}<li><strong>Notes:</strong> Code and notes are <a href="{{ site.github.url }}{{ post.url }}">online here.</a></li>{% endif %}
         {% if post.video != nil %}<li><strong>Video:</strong> Session was recorded and is <a href="{{ post.video }}">on YouTube.</a></li>{% endif %}
       </ul>
       </article>
