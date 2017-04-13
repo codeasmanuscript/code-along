@@ -1,0 +1,109 @@
+---
+title: Linear regression in depth
+details: A detailed look at the most common and powerful statistical technique.
+location: FG423
+date: 2017-04-12
+time: '13:00'
+topic: linear regression
+notes: true
+video: "https://www.youtube.com/watch?v=R3cMEEehj_Y"
+---
+
+Much of this I wrote about in a [blog post](http://blog.lukewjohnston.com/variance-linear-regression/)
+when I wanted to get a better understanding of linear regression. Check out the 
+[video](https://www.youtube.com/watch?v=R3cMEEehj_Y) to hear more on it.
+
+So, the simple formula for linear regression is:
+
+$$ Y = \alpha + X\beta + \varepsilon $$
+
+Written another way, with common alphabetic letters is:
+
+$$ y = m + Xb + e $$
+
+In the case of multiple linear regression, it is expanded to:
+
+$$ y = m + x_1b_1 + x_2b_b +...+ x_nb_n + e $$
+
+In R, this is done using `lm`. First, lets get a dataset and see the contents of it.
+
+```{r}
+ds <- as.data.frame(state.x77)
+names(ds)
+```
+
+Here, we run the linear regression and see the results.
+
+```{r}
+fit1 <- lm(Murder ~ Income, data = ds)
+summary(fit1)
+```
+
+If we convert this into the equation, it is:
+
+$$ Murder = Intercept + (Income \times Beta) $$
+Let's substitute in the numbers:
+
+$$ Murder = 13.5 + (Income \times 0.0013) $$
+
+The above is for a simple, two variable linear regression. What about if we have 
+multiple predictor ($x$) variables? We do:
+
+```{r}
+fit2 <- lm(Murder ~ Income + Population, data = ds)
+summary(fit2)
+```
+
+Converted to the formula:
+
+$$ Murder = 14.34 + (Income \times -0.0189) + (Population \times 0.0003384) $$
+
+Nearly all statistical techniques (at least the basic/common ones) can be
+considered a special case of linear regression. Let's take ANOVA as an example.
+ANOVA is where the $y$ is a continuous variable and the $x$ is a discrete
+variable (usually with at least three categories). In my opinion, using linear
+regression is more useful from a scientific and interpretation perspective than
+using ANOVA. Here's how you do it:
+
+```{r}
+fit3 <- lm(Petal.Length ~ Species, data = iris)
+# To see the different categories of Species
+summary(iris$Species)
+```
+
+```{r}
+summary(fit3)
+```
+
+Converted to an equation. Setosa isn't here because it is considered the
+'intercept' since if you set Versicolor and Virginica to zero, the remaining
+'category' is Setosa. These are known as dummy variables.
+
+$$ Petal.Length = 1.46 + (Versicolor \times 2.79) + (Virginica \times 4.09) $$
+
+The estimates from the linear regression as the same as the means of each group
+(each estimate + the intercept). 
+
+```{r}
+library(dplyr)
+iris %>%
+    group_by(Species) %>% 
+    summarize(means = mean(Petal.Length))
+```
+
+Linear regression and correlation are also tightly linked, and are the same if
+the variables have been scaled (mean-centered and standardized).
+
+```{r}
+ds <- iris %>%
+    mutate_each(funs(scale), Petal.Length, Sepal.Length)
+summary(ds)
+```
+
+```{r}
+cor(ds$Petal.Length, ds$Sepal.Length)
+```
+
+```{r}
+summary(lm(Petal.Length ~ Sepal.Length, data = ds))
+```
